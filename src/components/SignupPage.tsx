@@ -59,7 +59,7 @@ const SignupPage: React.FC = () => {
                 Signup
               </button>
               <p className="text-gray-600 text-sm">
-                Already have an account? <a href="/LoginPage" className="text-blue-500">Login here.</a>
+                Already have an account? <a href="/login" className="text-blue-500">Login here.</a>
               </p>
             </div>
           </form>
