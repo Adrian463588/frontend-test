@@ -10,29 +10,50 @@ import AdminDashboard from './components/AdminDashboard';
 import UpdateBook from './components/updateBook';
 import DeleteBook from './components/DeleteBook';
 import AddBook from './components/AddBook';
+import Navbar from './components/Navbar';
 import 'tailwindcss/tailwind.css';
 import './App.css';
 
 const App: React.FC = () => {
   return (
     <Router>
+      <Navbar/>
       <Routes>
+       <Route path="/login" element={<LoginPage />} />
+       <Route path="/signup" element={<SignupPage />} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
         <Route path="/product" element={<ProductPage />} />
-        <Route path="/signup" element={<SignupPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/booklist" element={<BookList />} />
         <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/updatebook" element={<UpdateBook title={''} details={''} cover={''} onUpdate={function (title: string, details: string, cover: string): void {
-          throw new Error('Function not implemented.');
-        } } />} />
-        <Route path="/deletebook" element={<DeleteBook cover={''} onDelete={function (): void {
-          throw new Error('Function not implemented.');
-        } } />} />
-        <Route path="/addbook" element={<AddBook onAdd={function (title: string, author: string, details: string, cover: string): void {
-          throw new Error('Function not implemented.');
-        } } />} />
+        <Route path="/updatebook" element={
+          <UpdateBook 
+            title={''} 
+            details={''} 
+            cover={''} 
+            onUpdate={(title, details, cover) => {
+              // Replace this with your implementation
+              console.log(`Updated book: ${title}, ${details}, ${cover}`);
+            }} 
+          />} 
+        />
+        <Route path="/deletebook" element={
+          <DeleteBook 
+            cover={''} 
+            onDelete={() => {
+              // Replace this with your implementation
+              console.log('Deleted book');
+            }} 
+          />} 
+        />
+        <Route path="/addbook" element={
+          <AddBook 
+            onAdd={(title, author, details, cover) => {
+              // Replace this with your implementation
+              console.log(`Added book: ${title}, ${author}, ${details}, ${cover}`);
+            }} 
+          />} 
+        />
       </Routes>
     </Router>
   );
