@@ -11,6 +11,8 @@ import UpdateBook from './components/updateBook';
 import DeleteBook from './components/DeleteBook';
 import AddBook from './components/AddBook';
 import Navbar from './components/Navbar';
+import IssuedPage from './components/IssuedPage';
+import ReadBookPage from './components/ReadBookPage';
 import 'tailwindcss/tailwind.css';
 import './App.css';
 
@@ -54,6 +56,11 @@ const App: React.FC = () => {
             }} 
           />} 
         />
+        <Route path="/issued" element={<IssuedPage />} />
+        <Route
+        path="/readbook"
+        element={<ReadBookPage pdfUrl="https://drive.google.com/file/d/1v3oxcbp74PkUFoP4EoxIl2EWVdzaoYlV/view?usp=sharing" />}
+      />
       </Routes>
     </Router>
   );
