@@ -25,17 +25,16 @@ const BookList: React.FC = () => {
   };
 
   const [searchTerm, setSearchTerm] = useState("");
-
-  const [books, setBooks] =useState<Book[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [books, setBooks] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get(`https://readify-seven.vercel.app/api/v1/books`, {headers});
+        const response = await axios.get(`https://readify-seven.vercel.app/api/v1/books`, { headers });
         const { data } = response;
         console.log(data);
         setBooks(data);
@@ -49,7 +48,7 @@ const BookList: React.FC = () => {
     };
 
     fetchBooks();
-    console.log(books)
+    console.log(books);
   }, [currentPage]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,16 +65,14 @@ const BookList: React.FC = () => {
     }
   };
 
-
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
-  // const filteredBooks = books.filter((book) =>
-  //   book.book_title.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
+  const filteredBooks = books.filter((book) =>
+    book.book_title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="container mx-auto py-4">
@@ -94,21 +91,7 @@ const BookList: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-5 grid-rows-3 gap-4">
-        <div>
-        <ul>
-          {books.map((book) => (
-            <li key={book.id}>
-              <h2>{book.book_title}</h2>
-              <p>ISBN: {book.ISBN}</p>
-              {/* Render other book details */}
-            </li>
-          ))}
-          </ul>
-          {isLoading && <p>Loading...</p>}
-          {!isLoading && !hasMore && <p>No more books</p>}
-          </div>
-{/* 
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {filteredBooks.map((book) => (
           <Link to={`/product/${book.id}`} key={book.id} className="hover:cursor-pointer">
             <div className="bg-white rounded shadow p-4">
@@ -121,8 +104,18 @@ const BookList: React.FC = () => {
               <p className="text-gray-500">{book.authors[0]}</p>
             </div>
           </Link>
-        ))} */}
+        ))}
       </div>
+      {isLoading && (
+        <div className="flex justify-center my-4">
+          <p className="text-gray-500">Loading...</p>
+        </div>
+      )}
+      {!isLoading && !hasMore && (
+        <div className="flex justify-center my-4">
+          <p className="text-gray-500">No more books</p>
+        </div>
+      )}
     </div>
   );
 };
