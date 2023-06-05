@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const SignupPage: React.FC = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('https://readify-seven.vercel.app/api/v1/register/user', {
+        name,
+        email,
+        password,
+      });
+      console.log(response.data); // Response dari server setelah signup berhasil
+      // Lakukan penanganan setelah signup berhasil, misalnya menyimpan token ke local storage dan mengarahkan pengguna ke halaman lain
+    } catch (error) {
+      console.log(error); // Penanganan kesalahan jika signup gagal
+      // Lakukan penanganan kesalahan, misalnya menampilkan pesan kesalahan kepada pengguna
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="max-w-md w-full">
         <div className="text-3xl font-bold mb-4">Signup</div>
         <div className="bg-white rounded-lg shadow-lg p-6">
-          <form>
+          <form onSubmit={handleSignup}>
             <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
                 Name
@@ -16,6 +39,8 @@ const SignupPage: React.FC = () => {
                 id="name"
                 type="text"
                 placeholder="Enter your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="mb-4">
@@ -27,6 +52,8 @@ const SignupPage: React.FC = () => {
                 id="email"
                 type="email"
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="mb-4">
@@ -38,6 +65,8 @@ const SignupPage: React.FC = () => {
                 id="password"
                 type="password"
                 placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="mb-4">
@@ -49,12 +78,14 @@ const SignupPage: React.FC = () => {
                 id="confirm-password"
                 type="password"
                 placeholder="Confirm your password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
             <div className="flex items-center justify-between">
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button"
+                type="submit"
               >
                 Signup
               </button>
