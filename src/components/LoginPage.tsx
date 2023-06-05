@@ -8,7 +8,7 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const { isLoggedIn, login, logout } = useContext(AuthContext);
+  const {  login } = useContext(AuthContext);
 
   const redirectToHome = () => {
     navigate('/');

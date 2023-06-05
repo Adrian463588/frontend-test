@@ -18,29 +18,64 @@ interface Book {
 }
 
 const BookList: React.FC = () => {
+  const token = localStorage.getItem("token");
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
   const [searchTerm, setSearchTerm] = useState("");
-  const [books, setBooks] = useState<Book[]>([]);
+
+  const [books, setBooks] =useState<Book[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get('https://readify-seven.vercel.app/api/v1/books');
-        setBooks(response.data);
+        setIsLoading(true);
+        const response = await axios.get(`https://readify-seven.vercel.app/api/v1/books`, {headers});
+        const { data } = response;
+        console.log(data);
+        setBooks(data);
+        // Determine if there are more books based on the count in the response
+        setHasMore(data.length > 0);
       } catch (error) {
-        console.log(error);
+        console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchBooks();
-  }, []);
+    console.log(books)
+  }, [currentPage]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredBooks = books.filter((book) =>
-    book.book_title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight &&
+      !isLoading &&
+      hasMore
+    ) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+
+  // const filteredBooks = books.filter((book) =>
+  //   book.book_title.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   return (
     <div className="container mx-auto py-4">
@@ -60,6 +95,20 @@ const BookList: React.FC = () => {
         </div>
       </div>
       <div className="grid grid-cols-5 grid-rows-3 gap-4">
+        <div>
+        <ul>
+          {books.map((book) => (
+            <li key={book.id}>
+              <h2>{book.book_title}</h2>
+              <p>ISBN: {book.ISBN}</p>
+              {/* Render other book details */}
+            </li>
+          ))}
+          </ul>
+          {isLoading && <p>Loading...</p>}
+          {!isLoading && !hasMore && <p>No more books</p>}
+          </div>
+{/* 
         {filteredBooks.map((book) => (
           <Link to={`/product/${book.id}`} key={book.id} className="hover:cursor-pointer">
             <div className="bg-white rounded shadow p-4">
@@ -72,7 +121,7 @@ const BookList: React.FC = () => {
               <p className="text-gray-500">{book.authors[0]}</p>
             </div>
           </Link>
-        ))}
+        ))} */}
       </div>
     </div>
   );
