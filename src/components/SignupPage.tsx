@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const SignupPage: React.FC = () => {
-  const [name, setName] = useState('');
+  const [username, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -12,7 +12,7 @@ const SignupPage: React.FC = () => {
 
     try {
       const response = await axios.post('https://readify-seven.vercel.app/api/v1/register/user', {
-        name,
+        username,
         email,
         password,
       });
@@ -39,7 +39,7 @@ const SignupPage: React.FC = () => {
                 id="name"
                 type="text"
                 placeholder="Enter your name"
-                value={name}
+                value={username}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>

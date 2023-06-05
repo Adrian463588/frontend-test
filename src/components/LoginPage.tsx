@@ -1,37 +1,44 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios, { AxiosError } from 'axios';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const redirectToHome = () => {
+    navigate('/');
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://readify-seven.vercel.app/api/v1/register/user', {
+      const response = await axios.post('https://readify-seven.vercel.app/api/v1/login', {
         email,
         password,
       });
-      console.log(response.data); // Response dari server setelah login berhasil
-      // Lakukan penanganan setelah login berhasil, misalnya menyimpan token ke local storage dan mengarahkan pengguna ke halaman lain
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        redirectToHome();
+      }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
         if (axiosError.response) {
-          console.log(axiosError.response.data); // Response dari server jika login gagal
-          // Lakukan penanganan kesalahan berdasarkan respon dari server
+          console.log('error');
+          console.log(axiosError.response.data);
         } else {
-          console.log(axiosError.message); // Pesan kesalahan jika tidak ada respon dari server
-          // Lakukan penanganan kesalahan jika tidak ada respon dari server
+          console.log(axiosError.message);
         }
       } else {
-        console.log(error); // Penanganan kesalahan umum jika bukan AxiosError
+        console.log(error);
       }
     }
   };
 
+  
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="max-w-md w-full">
