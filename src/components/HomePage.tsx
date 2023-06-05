@@ -80,14 +80,14 @@ const Home: React.FC = () => {
           Show All
         </Button>
       </div>
-      <div className="grid grid-cols-5 grid-rows-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {books.map((book) => (
           <Link to="/product" key={book.title} className="hover:cursor-pointer">
             <div className="bg-white rounded shadow p-4">
               <img
                 src={book.coverImage}
                 alt={book.title}
-                className="w-218 h-337 object-cover"
+                className="w-full h-64 object-cover"
               />
               <h3 className="text-lg font-semibold my-2">{book.title}</h3>
               <p className="text-gray-500">{book.author}</p>

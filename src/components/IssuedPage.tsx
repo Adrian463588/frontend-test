@@ -10,40 +10,24 @@ const IssuedPage: React.FC = () => {
   ];
 
   return (
-    <div className="grid grid-cols-4 gap-4">
-      <div className="col-span-1 border border-gray-300 p-2">Issued Book</div>
-      <div className="col-span-1 border border-gray-300 p-2">Book</div>
-      <div className="col-span-1 border border-gray-300 p-2">Title</div>
-      <div className="col-span-1 border border-gray-300 p-2">Return Date</div>
-
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {issuedBooks.map((book) => (
-        <React.Fragment key={book.id}>
-          <div className="col-span-1 flex items-center justify-center border border-gray-300 p-2">
-            
-              <button className="text-red-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M3 5a1 1 0 011-1h12a1 1 0 011 1v1H3V5zm2 2v9a2 2 0 002 2h6a2 2 0 002-2V7h2a1 1 0 110 2H5a1 1 0 010-2h2zm7 3a1 1 0 011 1v5a1 1 0 11-2 0V11a1 1 0 011-1zm-4 0a1 1 0 011 1v5a1 1 0 11-2 0V11a1 1 0 011-1z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-           
-          </div>
-          <div className="col-span-1 border border-gray-300 p-2">
+        <div key={book.id} className="border border-gray-300 rounded-lg overflow-hidden bg-white shadow-lg">
+          <div className="relative">
             <Link to="/readbook">
-              <img src={book.cover} alt="Book Cover" className="w-20 h-20 object-cover" />
+              <img src={book.cover} alt="Book Cover" className="w-full h-40 object-cover" />
             </Link>
+            <button className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 focus:outline-none">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 011 1v1H3V5zm2 2v9a2 2 0 002 2h6a2 2 0 002-2V7h2a1 1 0 110 2H5a1 1 0 010-2h2zm7 3a1 1 0 011 1v5a1 1 0 11-2 0V11a1 1 0 011-1zm-4 0a1 1 0 011 1v5a1 1 0 11-2 0V11a1 1 0 011-1z" clipRule="evenodd" />
+              </svg>
+            </button>
           </div>
-          <div className="col-span-1 border border-gray-300 p-2">{book.title}</div>
-          <div className="col-span-1 border border-gray-300 p-2">{book.returnDate}</div>
-        </React.Fragment>
+          <div className="p-4">
+            <Link to="/readbook" className="text-xl font-semibold hover:underline">{book.title}</Link>
+            <p className="text-gray-500 mt-2">Return Date: {book.returnDate}</p>
+          </div>
+        </div>
       ))}
     </div>
   );
