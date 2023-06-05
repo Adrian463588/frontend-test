@@ -1,20 +1,25 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Link } from 'react-router-dom';
 
+import { AuthContext } from "../utils/AuthContext";
+
 const ProfilePage: React.FC = () => {
+
+  const { username, email } = useContext(AuthContext);
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="bg-gray-200 p-8 rounded-lg">
         <div className="flex flex-col mb-4">
           <label className="text-lg font-semibold mb-2">Name:</label>
           <span className="w-80 h-12 px-4 rounded border border-gray-300 flex items-center justify-center">
-            John Doe
+            {username}
           </span>
         </div>
         <div className="flex flex-col mb-4">
           <label className="text-lg font-semibold mb-2">Email:</label>
           <span className="w-80 h-12 px-4 rounded border border-gray-300 flex items-center justify-center">
-            johndoe@example.com
+            {email}
           </span>
         </div>
         <div className="flex justify-center space-x-4">

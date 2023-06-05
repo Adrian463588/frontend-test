@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 
 import { AuthContext } from "../utils/AuthContext";
 
+import logo from "../assets/Logo.png";
+import { log } from "console";
+
 const Navbar: React.FC = () => {
 
   const { isLoggedIn, login, logout } = useContext(AuthContext);
@@ -16,9 +19,12 @@ const Navbar: React.FC = () => {
   return (
     <nav className="flex items-center justify-between py-2 px-4 bg-blue-500 text-white">
       <div className="flex space-x-4">
-        <Link to="/profile" className="hover:underline">
+        {isLoggedIn ? (
+          <Link to="/profile" className="hover:underline">
           Profile
-        </Link>
+        </Link>) : ('')
+        }
+        
         <Link to="/issued" className="hover:underline">
           My Book
         </Link>
@@ -36,7 +42,7 @@ const Navbar: React.FC = () => {
         )}
       </div>
       <div>
-        <img src="../assets/Logo.png" alt="Logo" className="h-8" />
+        <img src={logo} alt="Logo" className="h-8" />
       </div>
     </nav>
   );

@@ -1,12 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios, { AxiosError } from 'axios';
-import { AuthProvider } from '../utils/AuthContext';
+import { AuthContext } from '../utils/AuthContext';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  const { isLoggedIn, login, logout } = useContext(AuthContext);
 
   const redirectToHome = () => {
     navigate('/');
@@ -23,6 +25,7 @@ const LoginPage: React.FC = () => {
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
         redirectToHome();
+        login(response.data.user.username, response.data.user.email);
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
