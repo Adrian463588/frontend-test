@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface Product {
   title: string;
@@ -54,16 +55,9 @@ const ProductPage = () => {
             <div className="mt-4">
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline m-2"
-                onClick={handleAddToLoan}
                 disabled={product.stock === 0}
               >
-                Add to Loan
-              </button>
-              <button
-                className="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline m-2"
-                onClick={handleAddToWishlist}
-              >
-                Add to Wishlist
+                <Link to="/readbook">Loan</Link>
               </button>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 interface Book {
   title: string;
@@ -16,51 +17,58 @@ const books: Book[] = [
   {
     title: "To Kill a Mockingbird",
     author: "Harper Lee",
-    coverImage: "https://encyclopediaofalabama.org/wp-content/uploads/2023/02/m-2908.jpg",
+    coverImage:
+      "https://encyclopediaofalabama.org/wp-content/uploads/2023/02/m-2908.jpg",
   },
   {
     title: "1984",
     author: "George Orwell",
-    coverImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Nineteen_Eighty-Four_cover.jpg/220px-Nineteen_Eighty-Four_cover.jpg",
+    coverImage:
+      "https://images.tokopedia.net/img/cache/700/VqbcmM/2021/3/2/fefb0c40-7b97-4c81-b8e2-1f3b303fe9fe.jpg",
   },
   {
     title: "The Great Gatsby",
     author: "F. Scott Fitzgerald",
-    coverImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/The_Great_Gatsby_cover.jpg/220px-The_Great_Gatsby_cover.jpg",
+    coverImage:
+      "https://upload.wikimedia.org/wikipedia/commons/7/7a/The_Great_Gatsby_Cover_1925_Retouched.jpg",
   },
   {
     title: "Pride and Prejudice",
     author: "Jane Austen",
-    coverImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Pride_and_Prejudice_1813_cover.jpg/220px-Pride_and_Prejudice_1813_cover.jpg",
+    coverImage:
+      "https://upload.wikimedia.org/wikipedia/commons/7/7a/The_Great_Gatsby_Cover_1925_Retouched.jpg",
   },
   {
     title: "One Hundred Years of Solitude",
     author: "Gabriel García Márquez",
-    coverImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/One_Hundred_Years_of_Solitude_cover.jpg/220px-One_Hundred_Years_of_Solitude_cover.jpg",
+    coverImage:
+      "https://upload.wikimedia.org/wikipedia/commons/7/7a/The_Great_Gatsby_Cover_1925_Retouched.jpg",
   },
   {
     title: "The Hobbit",
     author: "J.R.R. Tolkien",
-    coverImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/The_Hobbit_1937_cover.jpg/220px-The_Hobbit_1937_cover.jpg",
+    coverImage:
+      "https://upload.wikimedia.org/wikipedia/commons/7/7a/The_Great_Gatsby_Cover_1925_Retouched.jpg",
   },
   {
     title: "Animal Farm",
     author: "George Orwell",
-    coverImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Animal_Farm_cover.jpg/220px-Animal_Farm_cover.jpg",
+    coverImage:
+      "https://upload.wikimedia.org/wikipedia/commons/7/7a/The_Great_Gatsby_Cover_1925_Retouched.jpg",
   },
   {
     title: "Brave New World",
     author: "Aldous Huxley",
-    coverImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Brave_New_World_cover.jpg/220px-Brave_New_World_cover.jpg",
+    coverImage:
+      "https://upload.wikimedia.org/wikipedia/commons/7/7a/The_Great_Gatsby_Cover_1925_Retouched.jpg",
   },
   {
     title: "Lord of the Flies",
     author: "William Golding",
-    coverImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Lord_of_the_Flies_cover.jpg/220px-Lord_of_the_Flies_cover.jpg",
+    coverImage:
+      "https://upload.wikimedia.org/wikipedia/commons/7/7a/The_Great_Gatsby_Cover_1925_Retouched.jpg",
   },
 ];
-
-
 const BookList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -91,15 +99,17 @@ const BookList: React.FC = () => {
       </div>
       <div className="grid grid-cols-5 grid-rows-3 gap-4">
         {filteredBooks.map((book, index) => (
-          <div key={index} className="bg-white rounded shadow p-4">
-            <img
-              src={book.coverImage}
-              alt={book.title}
-              className="w-full h-40 object-cover mb-2"
-            />
-            <h3 className="text-lg font-semibold">{book.title}</h3>
-            <p className="text-gray-500">{book.author}</p>
-          </div>
+          <Link to="/product" key={index} className="hover:cursor-pointer">
+            <div className="bg-white rounded shadow p-4">
+              <img
+                src={book.coverImage}
+                alt={book.title}
+                className="w-full h-40 object-cover mb-2"
+              />
+              <h3 className="text-lg font-semibold">{book.title}</h3>
+              <p className="text-gray-500">{book.author}</p>
+            </div>
+          </Link>
         ))}
       </div>
     </div>
