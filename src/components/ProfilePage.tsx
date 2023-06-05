@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 const ProfilePage: React.FC = () => {
   return (
@@ -17,12 +18,16 @@ const ProfilePage: React.FC = () => {
           </span>
         </div>
         <div className="flex justify-center space-x-4">
-          <button className="w-40 h-12 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded">
-            My Book
-          </button>
-          <button className="w-40 h-12 bg-red-500 hover:bg-red-700 text-white font-semibold rounded">
-            Logout
-          </button>
+        <Link to="/issued">
+  <button className="w-40 h-12 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded">
+    My Book
+  </button>
+</Link>
+<Link to="/login">
+  <button className="w-40 h-12 bg-red-500 hover:bg-red-700 text-white font-semibold rounded">
+    Logout
+  </button>
+</Link>
         </div>
       </div>
     </div>

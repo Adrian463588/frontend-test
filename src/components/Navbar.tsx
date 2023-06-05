@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
         <Link to="/" className="hover:underline">Home</Link>
       </div>
       <div>
-        <img src="/path/to/logo.png" alt="Logo" className="h-8" />
+        <img src="../assets/Logo.png" alt="Logo" className="h-8" />
       </div>
     </nav>
   );
