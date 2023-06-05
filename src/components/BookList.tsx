@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from 'axios';
 
 interface Book {
-  title: string;
-  author: string;
-  coverImage: string;
+  id: string;
+  book_id: number;
+  book_title: string;
+  ISBN: string;
+  authors: string[];
+  language_code: string;
+  average_rating: number;
+  rating_count: number;
+  year_published: number;
+  image_url: string;
+  userIDs: string[];
 }
 
 const BookList: React.FC = () => {
@@ -16,9 +24,7 @@ const BookList: React.FC = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get(
-          "https://readify-seven.vercel.app/api/v1/books"
-        );
+        const response = await axios.get('https://readify-seven.vercel.app/api/v1/books');
         setBooks(response.data);
       } catch (error) {
         console.log(error);
@@ -33,7 +39,7 @@ const BookList: React.FC = () => {
   };
 
   const filteredBooks = books.filter((book) =>
-    book.title.toLowerCase().includes(searchTerm.toLowerCase())
+    book.book_title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -54,16 +60,16 @@ const BookList: React.FC = () => {
         </div>
       </div>
       <div className="grid grid-cols-5 grid-rows-3 gap-4">
-        {filteredBooks.map((book, index) => (
-          <Link to="/product" key={index} className="hover:cursor-pointer">
+        {filteredBooks.map((book) => (
+          <Link to={`/product/${book.id}`} key={book.id} className="hover:cursor-pointer">
             <div className="bg-white rounded shadow p-4">
               <img
-                src={book.coverImage}
-                alt={book.title}
+                src={book.image_url}
+                alt={book.book_title}
                 className="w-full h-40 object-cover mb-2"
               />
-              <h3 className="text-lg font-semibold">{book.title}</h3>
-              <p className="text-gray-500">{book.author}</p>
+              <h3 className="text-lg font-semibold">{book.book_title}</h3>
+              <p className="text-gray-500">{book.authors[0]}</p>
             </div>
           </Link>
         ))}
